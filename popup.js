@@ -22,7 +22,11 @@ function pageExtract() {
       const arr = Array.isArray(j) ? j : j["@graph"] || [j];
       for (const node of arr) {
         const t = node && node["@type"];
-        if (t === "Product" || (Array.isArray(t) && t.includes("Product"))) {
+        if (
+          t === "Product" ||
+          t === "Book" ||
+          (Array.isArray(t) && (t.includes("Product") || t.includes("Book")))
+        ) {
           ld = node;
           break;
         }
@@ -154,6 +158,36 @@ function pageExtract() {
   }
 
   price = toNum(price);
+
+  // Fallback: many RU retailers hide the price from JSON-LD/OG (anti-scrape) and
+  // render it in a hashed-class node. Grab the largest visible, non-struck ₽ number
+  // (skipping "от …" / crossed-out prices). Imperfect but non-empty; user can edit.
+  if (!price) {
+    const pr = /(\d[\d  ]{1,9})\s*(?:₽|руб|р\.)/i;
+    const struck = (el) => {
+      for (let n = el; n && n !== document.body; n = n.parentElement) {
+        if ((getComputedStyle(n).textDecorationLine || "").includes("line-through"))
+          return true;
+        if (/old|strike|through|__old|prev|discount/i.test(n.className || ""))
+          return true;
+      }
+      return false;
+    };
+    const cands = [];
+    for (const el of document.querySelectorAll("body *")) {
+      if ((el.textContent || "").trim().length > 32) continue; // short price node
+      const t = (el.textContent || "").replace(/ /g, " ");
+      const mm = t.match(pr);
+      if (!mm) continue;
+      if (el.offsetParent === null || /\bот\b|from|мес/i.test(t) || struck(el))
+        continue;
+      const v = +mm[1].replace(/[\s ]/g, "");
+      if (v < 10) continue;
+      cands.push({ v, fs: parseFloat(getComputedStyle(el).fontSize) || 0 });
+    }
+    cands.sort((a, b) => b.fs - a.fs || a.v - b.v);
+    if (cands[0]) price = String(cands[0].v);
+  }
 
   if (!currency) {
     if (/\.ru$|ozon|wildberries|market\.yandex|\bдоставка\b/i.test(location.hostname + " " + document.title)) {
