@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#fff">
+          <path d="M12 1 C12.8 8 16 11.2 23 12 C16 12.8 12.8 16 12 23 C11.2 16 8 12.8 1 12 C8 11.2 11.2 8 12 1 Z" />
+        </svg>
+      </span>
+      <span class="brand">Followish</span>
+      <span id="who" class="who"></span>
+    </div>
+
+    <!-- loading skeleton -->
+    <div id="loading" class="body skeleton">
+      <div class="sk sk-line" style="height: 34px"></div>
+      <div class="row">
+        <div class="sk sk-thumb"></div>
+        <div class="grow" style="display: flex; flex-direction: column; gap: 9px">
+          <div class="sk sk-line"></div>
+          <div class="sk sk-line"></div>
+        </div>
+      </div>
+      <div class="sk sk-btn"></div>
+    </div>
+
+    <!-- onboarding -->
+    <div id="need-login" class="body hidden">
+      <div class="notice">
+        <div class="n-title">Нужен вход в Followish</div>
+        <p>
+          Открой followish.io и войди — токен подхватится сам. Потом снова нажми
+          на иконку.
+        </p>
+        <a class="linklike" href="https://followish.io/app" target="_blank"
+          >Открыть followish.io</a
+        >
+      </div>
+    </div>
+
+    <!-- form -->
+    <form id="form" class="body hidden">
+      <div class="field">
+        <span class="label">Вишлист</span>
+        <select id="wishlist"></select>
+      </div>
+
+      <div id="variants" class="variants"></div>
+
+      <div class="preview">
+        <img id="thumb" alt="" />
+        <div class="grow">
+          <div class="field">
+            <span class="label">Название</span>
+            <input id="name" type="text" placeholder="Название подарка" />
+          </div>
+          <div class="row">
+            <div class="field grow">
+              <span class="label">Цена</span>
+              <input id="price" type="text" inputmode="numeric" placeholder="0" />
+            </div>
+            <div class="field" style="width: 96px">
+              <span class="label">Валюта</span>
+              <select id="currency">
+                <option>RUB</option>
+                <option>USD</option>
+                <option>EUR</option>
+                <option>CNY</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="label">Картинка</span>
+        <input id="image" type="text" placeholder="https://…" />
+      </div>
+      <div id="gallery" class="gallery"></div>
+
+      <div class="row">
+        <div class="field grow">
+          <span class="label">Ссылка на товар</span>
+          <input id="storeLink" type="text" placeholder="https://…" />
+        </div>
+        <div class="field" style="width: 108px">
+          <span class="label">Желанность</span>
+          <select id="desire">
+            <option value="0">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="label">Комментарий</span>
+        <textarea id="comment" rows="2" maxlength="560"
+          placeholder="Детали, размер, цвет…"></textarea>
+      </div>
+
+      <button type="submit" id="save" class="save">
+        Добавить <span class="kbd">⌘↵</span>
+      </button>
+    </form>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

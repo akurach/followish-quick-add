@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <style>
+      body { width: 440px; }
+      .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; }
+      .state-ok { color: var(--ok); font-weight: 590; }
+      .state-warn { color: var(--danger); font-weight: 590; }
+      .hint { color: var(--fg-2); font-size: 12px; margin: 0; }
+      .btn-row { display: flex; gap: 8px; }
+      .ghost {
+        padding: 9px 12px; font: inherit; font-weight: 500;
+        color: var(--fg); background: var(--field-2);
+        border: 1px solid var(--line-2); border-radius: 8px; cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#fff">
+          <path d="M12 1 C12.8 8 16 11.2 23 12 C16 12.8 12.8 16 12 23 C11.2 16 8 12.8 1 12 C8 11.2 11.2 8 12 1 Z" />
+        </svg>
+      </span>
+      <span class="brand">Followish — настройки</span>
+    </div>
+
+    <div class="body">
+      <p id="token-state" class="hint mono"></p>
+
+      <p class="hint">
+        Обычно токен подхватывается сам, когда открываешь followish.io
+        залогиненным. Если нет — вставь Bearer JWT вручную:
+      </p>
+
+      <div class="field">
+        <span class="label">Токен</span>
+        <textarea id="token" rows="4" class="mono" placeholder="eyJ0eXAiOiJKV1Qi…"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button id="save" class="save" style="flex: 1">Сохранить токен</button>
+        <button id="clear" class="ghost">Очистить</button>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="options.js"></script>
+  </body>
+</html>
