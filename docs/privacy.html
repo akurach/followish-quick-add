@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quick Add for Followish — Политика конфиденциальности</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        max-width: 720px; margin: 40px auto; padding: 0 20px;
+        font: 16px/1.6 -apple-system, "SF Pro Text", system-ui, sans-serif;
+        color: #1a1a1a; background: #fff;
+      }
+      @media (prefers-color-scheme: dark) {
+        body { color: #ededf0; background: #161619; }
+        code { background: #23232a; }
+        a { color: #9a86f5; }
+      }
+      h1 { font-size: 24px; letter-spacing: -0.01em; }
+      h2 { font-size: 18px; margin-top: 32px; }
+      code { background: #f2f2f4; padding: 1px 5px; border-radius: 5px; font-size: 14px; }
+      .muted { color: #8a8f98; }
+      a { color: #6e56cf; }
+    </style>
+  </head>
+  <body>
+    <h1>Quick Add for Followish (unofficial)</h1>
+    <p class="muted">Политика конфиденциальности · обновлено 3 июля 2026</p>
+
+    <p>
+      Это неофициальное расширение для браузера, помогающее добавлять товары
+      в вишлисты сервиса <a href="https://followish.io">Followish</a> в один клик.
+      Расширение не связано с Followish и разработано независимо.
+    </p>
+
+    <h2>Какие данные обрабатываются</h2>
+    <ul>
+      <li>
+        <b>Токен авторизации Followish.</b> Когда вы открываете
+        <code>followish.io</code> залогиненным, расширение копирует ваш токен
+        сессии из локального хранилища сайта в локальное хранилище расширения
+        (<code>chrome.storage.local</code>) на вашем устройстве. Токен нужен
+        только для обращения к API Followish от вашего имени. Он никуда больше
+        не передаётся и не покидает ваш браузер, кроме запросов к
+        <code>core.followish.io</code>.
+      </li>
+      <li>
+        <b>Данные товара с открытой вкладки.</b> Только когда вы нажимаете на
+        иконку расширения, оно считывает со страницы название, цену, изображения
+        и ссылку, чтобы заполнить форму. Ничего не читается в фоне.
+      </li>
+    </ul>
+
+    <h2>Куда уходят данные</h2>
+    <p>
+      Только на <code>core.followish.io</code> — чтобы создать подарок в
+      <b>вашем</b> вишлисте, когда вы нажимаете «Добавить». Больше никуда.
+    </p>
+
+    <h2>Чего расширение НЕ делает</h2>
+    <ul>
+      <li>не собирает аналитику и не отслеживает вас;</li>
+      <li>не передаёт данные разработчику или третьим лицам;</li>
+      <li>не продаёт данные;</li>
+      <li>не имеет собственных серверов — работает только между вашим браузером
+        и Followish.</li>
+    </ul>
+
+    <h2>Разрешения</h2>
+    <ul>
+      <li><code>storage</code> — хранить токен и выбранный вишлист локально.</li>
+      <li><code>activeTab</code> + <code>scripting</code> — прочитать данные
+        товара с текущей вкладки в момент нажатия.</li>
+      <li>доступ к <code>followish.io</code> и <code>core.followish.io</code> —
+        синхронизация токена и вызовы API.</li>
+    </ul>
+
+    <h2>Контакт</h2>
+    <p>
+      Вопросы и проблемы —
+      <a href="https://github.com/akurach/followish-quick-add/issues">GitHub Issues</a>.
+    </p>
+  </body>
+</html>
